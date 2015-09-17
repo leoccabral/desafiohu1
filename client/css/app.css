@@ -1,0 +1,213 @@
+.header {
+    background-color: #003966;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 20px;
+}
+
+.panel-buscas {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    padding: 0;
+}
+
+.panel-buscas .slogan {
+    color: #40bffb;
+    text-align: center !important;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.panel-buscas .panel-heading {
+    background: #40bffb;
+}
+
+.panel-buscas .panel-heading {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    color: #fff;
+    padding: 1;
+}
+
+.panel-buscas .panel-heading .h1 {
+    margin: 8px;
+    font-size: 26px;
+}
+
+.panel-buscas .panel-heading .h1 i {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    top: -1px;
+    border: 2px #fff solid;
+    font-size: 18px;
+    padding: 5px 6px 5px 5px;
+}
+
+.panel-buscas .panel-body form label {
+    font-family: "Gotham Bold", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #656565;
+    font-size: 13px;
+    padding-top: 0;
+}
+
+.panel-buscas .form-busca-hotel .busca-group-addon {
+    position: relative;
+}
+
+.panel-buscas .form-busca-hotel .busca-group-addon .icon-location,
+.panel-buscas .form-busca-hotel .busca-group-addon .icon-calendar {
+    color: #ff8a21;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.panel-buscas .form-busca-hotel .busca-group-addon .icon-location[disabled],
+.panel-buscas .form-busca-hotel .busca-group-addon .icon-calendar[disabled] {
+    color: gray;
+}
+
+.panel-buscas .form-busca-hotel .busca-group-addon .input-busca-hotel,
+.panel-buscas .form-busca-hotel .busca-group-addon .daterange {
+    outline: none;
+    padding-left: 30px;
+    background-color: white;
+}
+
+.panel-buscas .form-busca-hotel .busca-group-addon .daterange[disabled] {
+    background-color: #D0CACA;
+}
+
+.panel-buscas .form-busca-hotel .busca-group-addon .input-busca-hotel:focus,
+.panel-buscas .form-busca-hotel .busca-group-addon .daterange:focus {
+    outline: none;
+    border: 1px solid #ff8a21;
+    box-shadow: 0 0 0px #719ECE;
+}
+
+.panel-buscas .form-busca-hotel .no-data label {
+    font-size: 10px;
+    color: #656565;
+}
+
+.panel-buscas .form-busca-hotel .no-data input[type=checkbox] {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.btn-orange {
+    border: rgba(235, 116, 9, 0.5) 0 solid;
+    width: 120px;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    font-weight: bold;
+    font-size: 12px;
+    background: #ff8a21;
+}
+
+.icon-search {
+    font-size: 12px;
+}
+
+.ui-datepicker table {
+    color: #656565;
+    font-size: 12.5px;
+}
+
+.ui-widget {
+    font-size: 12.5px;
+}
+
+.ui-widget-header {
+    border: 1px solid #ff8a21;
+    background: #ff8a21;
+}
+
+.box-result-busca .item-busca {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+}
+
+.box-result-busca .item-busca div {
+    padding: 0;
+}
+
+.box-result-busca .item-busca .item-foto {
+    text-align: center;
+}
+
+.box-result-busca .item-busca .item-foto img {
+    max-width: 300px;
+}
+
+.box-result-busca .item-busca .item-info {
+    padding: 10px 10px 0px 10px;
+}
+
+.box-result-busca .item-busca .item-info .localidade {
+    color: #656565;
+    margin: 5px 0 0 0;
+    font-size: 13px;
+}
+
+.box-result-busca .item-busca .item-info .nome {
+    color: #000;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.box-result-busca .item-busca .item-detalhe {
+    background: #f5f5f5;
+    padding: 10px;
+    border-left: 1px dashed #e5e5e5;
+    color: #656565;
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (min-width:768px) {
+    .box-result-busca .item-busca .item-detalhe .item-preco {
+        height: 160px;
+    }
+}
+
+.box-result-busca .item-busca .item-detalhe .item-preco {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.box-result-busca .item-busca .item-detalhe .item-preco .lb-partir {
+    color: #656565;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.box-result-busca .item-busca .item-detalhe .item-preco .moeda {
+    color: #000;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.box-result-busca .item-busca .item-detalhe .item-preco .valor {
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.box-result-busca .item-busca .item-detalhe .btn-verhotel {
+    max-width: 300px;
+    width: 100%;
+}
