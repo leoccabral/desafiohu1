@@ -21,21 +21,21 @@ angular.module('desafiohu')
                     );
 
                     $attrs.$observe('minDate', function(value) {
-                        var v = toDate(value);
+                        var v = toDate(value, 1);
                         $element.datepicker("option", "minDate", v != null ? v : minDateDefault);
 
                     });
 
                     $attrs.$observe('maxDate', function(value) {
-                        var v = toDate(value);
+                        var v = toDate(value, -1);
                         $element.datepicker("option", "maxDate", v != null ? v : maxDateDefault);
                     });
 
-                    var toDate = function(value) {
+                    var toDate = function(value, addDate) {
                         var v = null;
                         if (value && value != "") {
                             var arr = value.split('/');
-                            v = new Date(Number(arr[2]), Number(arr[1]) - 1, Number(arr[0]));
+                            v = new Date(Number(arr[2]), Number(arr[1]) - 1, Number(arr[0]) + addDate);
                         }
                         return v;
                     }
@@ -49,24 +49,8 @@ angular.module('desafiohu')
                 scope: false,
                 restrict: 'A',
                 link: function($scope, $element, $attrs) {
-                    //var listaHoteis = [];
-                    var listaHoteis = [{
-                        value: "jquery",
-                        label: "jQuery",
-                        desc: "the write less, do more, JavaScript library",
-                        icon: "jquery_32x32.png"
-                    }, {
-                        value: "jquery-ui",
-                        label: "jQuery UI",
-                        desc: "the official user interface library for jQuery",
-                        icon: "jqueryui_32x32.png"
-                    }, {
-                        value: "sizzlejs",
-                        label: "Sizzle JS",
-                        desc: "a pure-JavaScript CSS selector engine",
-                        icon: "sizzlejs_32x32.png"
-                    }];
-
+                    var listaHoteis = [];
+                    
                     var listarHoteis = function() {
                         var requestBody = {
                             method: 'POST',
@@ -76,6 +60,7 @@ angular.module('desafiohu')
                         var call = $http(requestBody)
                             .success(
                                 function(data) {
+                                    console.log(data);
                                     listaHoteis = data;
                                 }
                             );
