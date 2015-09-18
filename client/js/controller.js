@@ -9,26 +9,6 @@ angular.module('desafiohu')
                 $scope.entityBusca.saida = null;
             };
 
-            $scope.listarHoteis = function() {
-                var requestBody = {
-                    method: 'POST',
-                    url: '/hotel/listar',
-                    data: $scope.entityBusca
-                };
-
-                var call = $http(requestBody)
-                    .success(
-                        function(data) {
-                            console.log(data);
-                        }
-                    );
-            }
-
-            var validarFormBusca = function() {
-                return true;
-            };
-
-
             $scope.buscarHoteis = function() {
 
                 $validator.validate($scope, 'entityBusca').success(function() {

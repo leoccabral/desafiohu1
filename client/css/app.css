@@ -2,7 +2,7 @@
     display: none;
 }
 
-.content.loaded{
+.content.loaded {
     display: block;
 }
 
@@ -232,4 +232,20 @@
 
 .validation-error {
     border-color: #EC1212;
+}
+
+.ui-autocomplete {
+    max-height: 130px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+.panel-buscas .panel-body form label.error {
+    color: #a94442;
+    font-size: 11px;
+}
+
+.has-error .form-control{
+    border-color: #a94442!important;
 }

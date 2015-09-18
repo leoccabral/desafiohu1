@@ -39,7 +39,7 @@
                 <div class="col-xs-6">
                   <div class="form-group busca-group-addon">
                     <i class="glyphicon glyphicon-calendar icon-calendar" ng-disabled="entityBusca.nodata"></i>
-                    <input my-datepicker id="hotelDataIda" class="form-control daterange datepicker" placeholder="entrada" name="checkin" readonly ng-model="entityBusca.entrada" ng-disabled="entityBusca.nodata" fw-validator="[required]" required-enabled="{{entityBusca.nodata != true}}">
+                    <input my-datepicker max-date="{{entityBusca.saida}}" id="hotelDataIda" class="form-control daterange datepicker" placeholder="entrada" name="checkin" readonly ng-model="entityBusca.entrada" ng-disabled="entityBusca.nodata" fw-validator="[required]" required-enabled="{{entityBusca.nodata != true}}">
                   </div>
                   <div class="form-group ">
                     <div class="checkbox no-data">
@@ -51,7 +51,7 @@
                 <div class="col-xs-6">
                   <div class="form-group busca-group-addon">
                     <i class="glyphicon glyphicon-calendar icon-calendar" ng-disabled="entityBusca.nodata"></i>
-                    <input my-datepicker id="hotelDataVolta" class="form-control daterange datepicker" placeholder="saída" name="checkout" readonly ng-model="entityBusca.saida" ng-disabled="entityBusca.nodata" fw-validator="[required]" required-enabled="{{entityBusca.nodata != true}}">
+                    <input my-datepicker min-date="{{entityBusca.entrada}}" id="hotelDataVolta" class="form-control daterange datepicker" placeholder="saída" name="checkout" readonly ng-model="entityBusca.saida" ng-disabled="entityBusca.nodata" fw-validator="[required]" required-enabled="{{entityBusca.nodata != true}}">
                   </div>
                 </div>
               </div>
