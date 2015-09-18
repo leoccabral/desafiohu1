@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="content" ng-controller="BuscaController">
+  <div class="content" ng-controller="BuscaController" ng-class="{'loaded':appLoaded}">
     <div class="header">
       <img src="img/logo.png">
     </div>
@@ -30,7 +30,7 @@
               <label for="hotelDestino">Quer ficar onde?</label>
               <div class="form-group busca-group-addon">
                 <i class="glyphicon glyphicon-map-marker icon-location"></i>
-                <input type="text" class="form-control input-busca-hotel" id="exampleInputAmount" placeholder="cidade ou hotel" name="busca" ng-model="entityBusca.valor">
+                <input my-autocomplete type="text" class="form-control input-busca-hotel" id="exampleInputAmount" placeholder="cidade ou hotel" name="busca" ng-model="entityBusca.valor" fw-validator="[required]">
               </div>
             </div>
             <div class="col-md-7 col-sm-12">
@@ -39,19 +39,19 @@
                 <div class="col-xs-6">
                   <div class="form-group busca-group-addon">
                     <i class="glyphicon glyphicon-calendar icon-calendar" ng-disabled="entityBusca.nodata"></i>
-                    <input id="hotelDataIda" class="form-control daterange datepicker" placeholder="entrada" name="checkin" readonly ng-model="entityBusca.entrada" ng-disabled="entityBusca.nodata">
+                    <input my-datepicker id="hotelDataIda" class="form-control daterange datepicker" placeholder="entrada" name="checkin" readonly ng-model="entityBusca.entrada" ng-disabled="entityBusca.nodata" fw-validator="[required]" required-enabled="{{entityBusca.nodata != true}}">
                   </div>
                   <div class="form-group ">
                     <div class="checkbox no-data">
                       <label>
-                        <input type="checkbox" name="naodefinidadata" ng-model="entityBusca.nodata" ng-click="selectNodata()"> Ainda não defini as datas </label>
+                        <input type="checkbox" name="naodefinidadata" ng-model="entityBusca.nodata" ng-click="selectNodata()" > Ainda não defini as datas </label>
                     </div>
                   </div>
                 </div>
                 <div class="col-xs-6">
                   <div class="form-group busca-group-addon">
                     <i class="glyphicon glyphicon-calendar icon-calendar" ng-disabled="entityBusca.nodata"></i>
-                    <input id="hotelDataVolta" class="form-control daterange datepicker" placeholder="saída" name="checkout" readonly ng-model="entityBusca.saida" ng-disabled="entityBusca.nodata">
+                    <input my-datepicker id="hotelDataVolta" class="form-control daterange datepicker" placeholder="saída" name="checkout" readonly ng-model="entityBusca.saida" ng-disabled="entityBusca.nodata" fw-validator="[required]" required-enabled="{{entityBusca.nodata != true}}">
                   </div>
                 </div>
               </div>
@@ -97,53 +97,10 @@
   <script src="vendor/angular.min.js"></script>
   <script src="vendor/jquery-ui.min.js"></script>
   <script src="vendor/datepicker-pt-BR.js"></script>
+  <script src="vendor/fwValidator.js"></script>
+  <script src="js/start.js"></script>
+  <script src="js/directive.js"></script>
   <script src="js/controller.js"></script>
-  <script>
-    $(function() {
-      var projects = [{
-        value: "jquery",
-        label: "jQuery",
-        desc: "the write less, do more, JavaScript library",
-        icon: "jquery_32x32.png"
-      }, {
-        value: "jquery-ui",
-        label: "jQuery UI",
-        desc: "the official user interface library for jQuery",
-        icon: "jqueryui_32x32.png"
-      }, {
-        value: "sizzlejs",
-        label: "Sizzle JS",
-        desc: "a pure-JavaScript CSS selector engine",
-        icon: "sizzlejs_32x32.png"
-      }];
-
-      $(".input-busca-hotel").autocomplete({
-          minLength: 0,
-          source: projects,
-          focus: function(event, ui) {
-            $("input-busca-hotel").val(ui.item.label);
-            return false;
-          },
-          // select: function(event, ui) {
-          //     $("#project").val(ui.item.label);
-          //     $("#project-id").val(ui.item.value);
-          //     $("#project-description").html(ui.item.desc);
-          //     $("#project-icon").attr("src", "images/" + ui.item.icon);
-
-          //     return false;
-          // }
-        })
-        .autocomplete("instance")._renderItem = function(ul, item) {
-          return $("<li>")
-            .append("<a>" + item.label + "<br>" + item.desc + "</a>")
-            .appendTo(ul);
-        };
-    });
-
-    $(function() {
-      $(".datepicker").datepicker($.datepicker.regional["pt-BR"]);
-    });
-  </script>
 </body>
 
 </html>

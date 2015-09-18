@@ -1,3 +1,11 @@
+.content {
+    display: none;
+}
+
+.content.loaded{
+    display: block;
+}
+
 .header {
     background-color: #003966;
     margin-bottom: 10px;
@@ -210,4 +218,18 @@
 .box-result-busca .item-busca .item-detalhe .btn-verhotel {
     max-width: 300px;
     width: 100%;
+}
+
+.busca-autocomplete {
+    color: #656565;
+}
+
+.ui-autocomplete .busca-autocomplete.ui-state-focus {
+    border: 1px solid #e5e5e5;
+    font-weight: normal;
+    color: #8E8888;
+}
+
+.validation-error {
+    border-color: #EC1212;
 }
