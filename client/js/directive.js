@@ -1,4 +1,4 @@
-angular.module('desafiohu')
+window.angular.module('desafiohu')
     .directive('myDatepicker', [
         function() {
             return {
@@ -60,7 +60,6 @@ angular.module('desafiohu')
                         var call = $http(requestBody)
                             .success(
                                 function(data) {
-                                    console.log(data);
                                     listaHoteis = data;
                                 }
                             );
@@ -111,15 +110,13 @@ angular.module('desafiohu')
                                     }
                                 }
 
-
                                 matchesAll = matchesAll.concat(matchesNome);
                                 matchesAll = matchesAll.concat(matchesLocalidade);
-
 
                                 response(matchesAll);
                             },
                             focus: function(event, ui) {
-                                $element.val(itemRenderer(ui.item));
+                            //    $element.val(itemRenderer(ui.item));
                                 return false;
                             },
                             select: function(event, ui) {

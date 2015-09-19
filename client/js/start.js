@@ -1,1 +1,1 @@
-angular.module('desafiohu', ["framework.validator"]);
+window.angular.module('desafiohu', ["framework.validator"]);
