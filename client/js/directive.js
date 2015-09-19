@@ -121,6 +121,7 @@ window.angular.module('desafiohu')
                             },
                             select: function(event, ui) {
                                 $element.val(itemRenderer(ui.item));
+                                $element.trigger('input');
                                 return false;
                             }
                         })
