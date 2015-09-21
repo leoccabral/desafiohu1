@@ -35,7 +35,7 @@ module.exports = function(app) {
                         next(erro);
                     }
                 });
-            };
+            }
 
 
             function buscarExata() {
@@ -45,16 +45,16 @@ module.exports = function(app) {
                 };
 
                 var callback = function(hoteis) {
-                    if (hoteis.length == 0)
+                    if (hoteis.length === 0)
                         buscarParcial();
                     else
                         res.json(hoteis);
-                }
+                };
 
                 console.log("EXATA");
 
                 executarQuery(query, callback);
-            };
+            }
 
             function buscarParcial() {
                 var query = {
@@ -63,14 +63,14 @@ module.exports = function(app) {
                 };
 
                 var callback = function(hoteis) {
-                    if (hoteis.length == 0)
+                    if (hoteis.length === 0)
                         buscarParcialNome(hoteis);
                     else
                         res.json(hoteis);
-                }
+                };
 
                 executarQuery(query, callback);
-            };
+            }
 //
             function buscarParcialNome(result) {
                 var query = {
@@ -80,10 +80,10 @@ module.exports = function(app) {
 
                 var callback = function(hoteis) {
                     buscarParcialLocalidade(result.concat(hoteis));
-                }
+                };
 
                 executarQuery(query, callback);
-            };
+            }
             
              function buscarParcialLocalidade(result) {
                 var query = {
@@ -94,10 +94,10 @@ module.exports = function(app) {
                 var callback = function(hoteis) {
                     console.log(result.concat(hoteis).length);
                     res.json(result.concat(hoteis));
-                }
+                };
 
                 executarQuery(query, callback);
-            };
+            }
 
             if (arrT.length == 2) {
                 buscarExata();
