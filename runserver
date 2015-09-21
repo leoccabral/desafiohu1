@@ -1,3 +1,4 @@
 npm install
 grunt compile
-node build/server.js
+cd build
+node server.js
