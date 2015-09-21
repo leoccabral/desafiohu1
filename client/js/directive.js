@@ -22,23 +22,23 @@ window.angular.module('desafiohu')
 
                     $attrs.$observe('minDate', function(value) {
                         var v = toDate(value, 1);
-                        $element.datepicker("option", "minDate", v != null ? v : minDateDefault);
+                        $element.datepicker("option", "minDate", v !== null ? v : minDateDefault);
 
                     });
 
                     $attrs.$observe('maxDate', function(value) {
                         var v = toDate(value, -1);
-                        $element.datepicker("option", "maxDate", v != null ? v : maxDateDefault);
+                        $element.datepicker("option", "maxDate", v !== null ? v : maxDateDefault);
                     });
 
                     var toDate = function(value, addDate) {
                         var v = null;
-                        if (value && value != "") {
+                        if (value && value !== "") {
                             var arr = value.split('/');
                             v = new Date(Number(arr[2]), Number(arr[1]) - 1, Number(arr[0]) + addDate);
                         }
                         return v;
-                    }
+                    };
                 }
             };
         }
@@ -57,17 +57,17 @@ window.angular.module('desafiohu')
                             url: '/hotel/listar'
                         };
 
-                        var call = $http(requestBody)
+                        $http(requestBody)
                             .success(
                                 function(data) {
                                     listaHoteis = data;
                                 }
                             );
-                    }
+                    };
 
                     var itemRenderer = function(item) {
                         return item.localidade + ", " + item.nome;
-                    }
+                    };
 
                     $element.autocomplete({
                             source: function(request, response) {
@@ -145,7 +145,7 @@ window.angular.module('desafiohu')
                             return $("<li class='busca-autocomplete'>")
                             .append($("<a></a>").html(renderer(maskLocalidade, item.localidade) + ", " + renderer(maskNome, item.nome)))
                                 .appendTo(ul);
-                        };;
+                        };
 
                     listarHoteis();
                 }

@@ -22,7 +22,7 @@ window.angular.module('desafiohu')
                         data: $scope.entityBusca
                     };
 
-                    var call = $http(requestBody)
+                   $http(requestBody)
                         .success(
                             function(data) {
                                 $scope.listaHoteis = data;
@@ -60,11 +60,11 @@ window.angular.module('desafiohu')
                 else {
                     if (param.nodata == 'N') {
                         if (!window.angular.isString(param.entrada) || param.entrada.length != 10) {
-                            isValid = false
+                            isValid = false;
                         }
                         else
                         if (!window.angular.isString(param.saida) || param.saida.length != 10) {
-                            isValid = false
+                            isValid = false;
                         }
                     }
                 }
