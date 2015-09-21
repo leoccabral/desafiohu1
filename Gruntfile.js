@@ -1,34 +1,35 @@
 module.exports = function(grunt) {
 
-    grunt.path_build_client = "client/build/"
-    grunt.path_client = "client/";
-
-var file_server = ['server.js', 'controllers/*.js', 'routes/*.js', 'models/*.js'];
-    //DEV
-    //   var optUglify = {
-    //     sourceMap: false,
-    //     sourceMapIncludeSources: false,
-    //     mangle: false,
-    //     beautify: true,
-    //     compress: false,
-    //     preserveComments: 'all'
-    // };
+    grunt.path_build = "build/"
+    grunt.path_build_client = "client/"
+    grunt.path_client = "source/client/";
+    grunt.path_server = "source/server";
 
     //DEV
-    var optUglify = {
+      var optUglify = {
         sourceMap: false,
         sourceMapIncludeSources: false,
-        mangle: true,
-        beautify: false,
-        preserveComments: 'none',
-        compress: {
-            global_defs: {
-                "DEBUG": false
-            },
-            dead_code: true,
-            drop_console: true
-        }
+        mangle: false,
+        beautify: true,
+        compress: false,
+        preserveComments: 'all'
     };
+
+    //PROD
+    // var optUglify = {
+    //     sourceMap: false,
+    //     sourceMapIncludeSources: false,
+    //     mangle: true,
+    //     beautify: false,
+    //     preserveComments: 'none',
+    //     compress: {
+    //         global_defs: {
+    //             "DEBUG": false
+    //         },
+    //         dead_code: true,
+    //         drop_console: true
+    //     }
+    // };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -36,39 +37,48 @@ var file_server = ['server.js', 'controllers/*.js', 'routes/*.js', 'models/*.js'
             options: {
                 reporter: require('jshint-stylish')
             },
-            server: file_server,
+            server: ['<%= grunt.path_server %>/**/*.js'],
             client: ['<%= grunt.path_client %>js/**/*.js'],
         },
         clean: {
-            client: {
-                src: ['<%= grunt.path_build_client %>**/*'],
+            build: {
+                src: ['<%= grunt.path_build %>**/*'],
                 options: {
                     force: true
                 }
             }
         },
-        uglify: {
-            client: {
-                options: optUglify,
-                files: {
-                    '<%= grunt.path_build_client %>app.min.js': [
-                        '<%= grunt.path_client %>js/start.js',
-                        '<%= grunt.path_client %>js/controller.js',
-                        '<%= grunt.path_client %>js/directive.js'
-                    ]
-                }
+        copy: {
+            server: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= grunt.path_server %>',
+                    src: ['**'],
+                    dest: '<%= grunt.path_build %>'
+                }]
             },
-            vendor: {
-                options: optUglify,
-                files: {
-                    '<%= grunt.path_build_client %>lib.min.js': [
-                        '<%= grunt.path_client %>vendor/jquery.js',
-                        '<%= grunt.path_client %>vendor/angular.js',
-                        '<%= grunt.path_client %>vendor/fwValidator.js',
-                        '<%= grunt.path_client %>vendor/jquery-ui.js',
-                        '<%= grunt.path_client %>vendor/datepicker-pt-BR.js'
-                    ]
-                }
+            resources: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= grunt.path_client %>',
+                    src: ['fonts/*.*', 'img/*.*'],
+                    dest: '<%= grunt.path_build %><%= grunt.path_build_client %>'
+                }]
+            }
+        },
+        htmlmin: {
+            html: { 
+                options: { 
+                    removeComments: true,
+                    collapseWhitespace: false
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= grunt.path_client %>/',
+                    src: ['**/*.html'],
+                    dest: '<%= grunt.path_build %><%= grunt.path_build_client %>',
+                    filter: 'isFile'
+                }]
             }
         },
         less: {
@@ -80,17 +90,42 @@ var file_server = ['server.js', 'controllers/*.js', 'routes/*.js', 'models/*.js'
                     cleancss: true
                 },
                 files: {
-                    '<%= grunt.path_build_client %>app.min.css': '<%= grunt.path_client %>less/app.less'
+                    '<%= grunt.path_build %><%= grunt.path_build_client %>css/app.min.css': '<%= grunt.path_client %>less/app.less'
+                }
+            }
+        },
+        uglify: {
+            client: {
+                options: optUglify,
+                files: {
+                    '<%= grunt.path_build %><%= grunt.path_build_client %>js/app.min.js': [
+                        '<%= grunt.path_client %>js/start.js',
+                        '<%= grunt.path_client %>js/controller.js',
+                        '<%= grunt.path_client %>js/directive.js'
+                    ]
+                }
+            },
+            vendor: {
+                options: optUglify,
+                files: {
+                    '<%= grunt.path_build %><%= grunt.path_build_client %>js/lib.min.js': [
+                        '<%= grunt.path_client %>vendor/jquery.js',
+                        '<%= grunt.path_client %>vendor/angular.js',
+                        '<%= grunt.path_client %>vendor/fwValidator.js',
+                        '<%= grunt.path_client %>vendor/jquery-ui.js',
+                        '<%= grunt.path_client %>vendor/datepicker-pt-BR.js'
+                    ]
                 }
             }
         },
         watch: {
             server: {
                 files: ['server.js',
-                'controllers/*.js',
-                'routes/*.js',
-                'models/*.js'],
-                tasks: ['jshint:server']
+                    'controllers/*.js',
+                    'routes/*.js',
+                    'models/*.js'
+                ],
+                tasks: ['jshint:server', 'copy:server']
             },
             client: {
                 files: ['<%= grunt.path_client %>js/**/*.js'],
@@ -99,7 +134,16 @@ var file_server = ['server.js', 'controllers/*.js', 'routes/*.js', 'models/*.js'
             less: {
                 files: ['<%= grunt.path_client %>less/*.less'],
                 tasks: ['less:app']
-            }
+            },
+            html: {
+                files: ['<%= grunt.path_client %>**/*.html'],
+                tasks: ['htmlmin:html']
+            },
+            resources: {
+                files: ['<%= grunt.path_client %>fonts/*.*', '<%= grunt.path_client %>img/*.*'],
+                tasks: ['copy:resources']
+            },
+            
         }
     });
 
@@ -108,19 +152,24 @@ var file_server = ['server.js', 'controllers/*.js', 'routes/*.js', 'models/*.js'
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
-    grunt.registerTask('default', [
+    grunt.registerTask('compile', [
         'jshint:server',
         'jshint:client',
-        'clean:client',
+        'clean:build',
+        'copy:server',
+        'copy:resources',
+        'htmlmin:html',
         'less:app',
         'uglify:client',
         'uglify:vendor'
     ]);
-    
+
     // Default task(s).
-    grunt.registerTask('watch', [
-        'default',
+    grunt.registerTask('default', [
+        'compile',
         'watch'
     ]);
 
