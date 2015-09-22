@@ -15,7 +15,7 @@ window.angular.module('desafiohu')
 
                 $validator.validate($scope, 'entityBusca').success(function() {
                     $validator.reset($scope, 'entityBusca');
-                    $scope.listaHoteis = [];
+                    $scope.listaHoteis = null;
                     var requestBody = {
                         method: 'POST',
                         url: '/hotel/buscar',
