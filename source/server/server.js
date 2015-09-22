@@ -5,16 +5,18 @@ var mongoose = require('mongoose');
 var error = require('./error');
 var load = require('express-load');
 
+var MAX_AGE = {maxAge: 3600000};
+var GZIP_LVL = {level: 9, memLevel: 9};
 
 var app = express();
 var server = http.createServer(app);
 
 global.db = mongoose.connect('mongodb://localhost/desafiohu');
 
-app.use(express.static(path.resolve(__dirname, 'client')));
+app.use(express.static(path.resolve(__dirname, 'client'), MAX_AGE));
 app.use(express.json());
 app.use(app.router);
-
+app.use(express.compress(GZIP_LVL));
 app.use(error.notFound);
 
 load('script')

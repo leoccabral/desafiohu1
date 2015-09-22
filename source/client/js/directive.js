@@ -9,7 +9,7 @@ window.angular.module('desafiohu')
                 restrict: 'A',
                 link: function($scope, $element, $attrs) {
                     var minDateDefault = new Date(2015, 5 - 1, 1);
-                    var maxDateDefault = new Date(2015, 5 - 1, 30);
+                    var maxDateDefault = new Date(2015, 5 - 1, 31);
                     $element.datepicker({
                         numberOfMonths: 1,
                         minDate: minDateDefault,
