@@ -120,10 +120,7 @@ module.exports = function(grunt) {
         },
         watch: {
             server: {
-                files: ['<%= grunt.path_server %>server.js',
-                    '<%= grunt.path_server %>controllers/*.js',
-                    '<%= grunt.path_server %>routes/*.js',
-                    '<%= grunt.path_server %>models/*.js'
+                files: ['<%= grunt.path_server %>**/*.js'
                 ],
                 tasks: ['jshint:server', 'copy:server']
             },

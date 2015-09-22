@@ -1,4 +1,5 @@
 module.exports = function(app) {
+    var connect = require('../lib/db_connect')();
     var Schema = require('mongoose').Schema;
     var script =  app.script.disp;
 
@@ -17,7 +18,7 @@ module.exports = function(app) {
         }
     });
 
-    var DB = global.db.model('disponibilidades', disponibilidadeSchema);
+    var DB = connect.model('disponibilidades', disponibilidadeSchema);
     script.init(DB);
     return DB;
 };

@@ -1,4 +1,0 @@
-npm install
-grunt compile
-cd build
-node server.js

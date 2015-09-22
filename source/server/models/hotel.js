@@ -1,4 +1,5 @@
 module.exports = function(app) {
+    var connect = require('../lib/db_connect')();
     var Schema = require('mongoose').Schema;
     var script =  app.script.hotel;
     
@@ -22,7 +23,7 @@ module.exports = function(app) {
             type: String
         }
     });
-    var DB = global.db.model('hoteis', hotelSchema);
+    var DB = connect.model('hoteis', hotelSchema);
     script.init(DB);
     return DB;
 };
