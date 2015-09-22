@@ -23,7 +23,8 @@ app.use(express.json());
 //app.use(error.notFound);
 //app.use(error.serverError);
 
-load('models')
+load('script')
+  .then('models')
   .then('controllers')
   .then('routes')
   .into(app);

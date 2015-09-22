@@ -3,7 +3,7 @@ module.exports = function(grunt) {
     grunt.path_build = "build/"
     grunt.path_build_client = "client/"
     grunt.path_client = "source/client/";
-    grunt.path_server = "source/server";
+    grunt.path_server = "source/server/";
 
     //DEV
       var optUglify = {
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
             options: {
                 reporter: require('jshint-stylish')
             },
-            server: ['<%= grunt.path_server %>/**/*.js'],
+            server: ['<%= grunt.path_server %>**/*.js', '!<%= grunt.path_server %>script/*.js'],
             client: ['<%= grunt.path_client %>js/**/*.js'],
         },
         clean: {
@@ -120,10 +120,10 @@ module.exports = function(grunt) {
         },
         watch: {
             server: {
-                files: ['server.js',
-                    'controllers/*.js',
-                    'routes/*.js',
-                    'models/*.js'
+                files: ['<%= grunt.path_server %>server.js',
+                    '<%= grunt.path_server %>controllers/*.js',
+                    '<%= grunt.path_server %>routes/*.js',
+                    '<%= grunt.path_server %>models/*.js'
                 ],
                 tasks: ['jshint:server', 'copy:server']
             },

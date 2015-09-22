@@ -1,5 +1,6 @@
 module.exports = function(app) {
     var HotelDB = app.models.hotel;
+    var DispDB = app.models.disp;
 
     var HotelController = {
         list: function(req, res, next) {
@@ -14,7 +15,6 @@ module.exports = function(app) {
         },
         //TROCAR POR UM MOTOR DE BUSCA
         buscar: function(req, res, next) {
-            //console.log(req.body);
             var entityBusca = req.body;
 
             var arrT = entityBusca.valor.split(",");
@@ -24,19 +24,49 @@ module.exports = function(app) {
             if (arrT.length > 1)
                 vlNome = arrT[1].trim();
 
+            function resHoteis(hoteis) {
+                if (entityBusca.nodata == "N") {
+                    var size = hoteis.length;
+                    var i = 0;
+                    var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+                    hoteis.forEach(function(hotel) {
+                        var dtEntrada = new Date(entityBusca.entrada.replace(pattern,'$3-$2-$1'));
+                        var dtSaida = new Date(entityBusca.saida.replace(pattern,'$3-$2-$1'));
+                        dtSaida.setDate(dtSaida.getDate()-1);
+                        DispDB.find({
+                            cod: hotel.cod,
+                            data: {
+                                $gte: dtEntrada,
+                                $lte: dtSaida
+                            },
+                            disponivel: 1
+                        }, function(erro, disp) {
+                            i += 1;
+                            
+                            var timeDiff = Math.abs(dtSaida.getTime() - dtEntrada.getTime());
+                            var diffDays = (timeDiff / (1000 * 3600 * 24)) + 1; 
+                            hotel.disponivel = disp.length === diffDays? 'S': 'N';
+                            if (size == i) {
+                                res.json(hoteis);
+                            }
+                        });
+                    });
+                }
+                else {
+                    res.json(hoteis);
+                }
+            }
 
             function executarQuery(query, callback) {
                 HotelDB.find(query, 'cod nome localidade', function(erro, hoteis) {
                     if (!erro) {
                         callback(hoteis);
-
                     }
                     else {
                         next(erro);
                     }
                 });
             }
-
 
             function buscarExata() {
                 var query = {
@@ -48,10 +78,8 @@ module.exports = function(app) {
                     if (hoteis.length === 0)
                         buscarParcial();
                     else
-                        res.json(hoteis);
+                        resHoteis(hoteis);
                 };
-
-                console.log("EXATA");
 
                 executarQuery(query, callback);
             }
@@ -66,16 +94,16 @@ module.exports = function(app) {
                     if (hoteis.length === 0)
                         buscarParcialNome(hoteis);
                     else
-                        res.json(hoteis);
+                        resHoteis(hoteis);
                 };
 
                 executarQuery(query, callback);
             }
-//
+            //
             function buscarParcialNome(result) {
                 var query = {
-                        "localidade": new RegExp('^((?!' + vlLocalidade + ').)*$', 'i'),
-                        "nome": new RegExp(vlNome, 'i')
+                    "localidade": new RegExp('^((?!' + vlLocalidade + ').)*$', 'i'),
+                    "nome": new RegExp(vlNome, 'i')
                 };
 
                 var callback = function(hoteis) {
@@ -84,16 +112,15 @@ module.exports = function(app) {
 
                 executarQuery(query, callback);
             }
-            
-             function buscarParcialLocalidade(result) {
+
+            function buscarParcialLocalidade(result) {
                 var query = {
-                        "localidade": new RegExp(vlLocalidade, 'i'),
-                        "nome": new RegExp('^((?!' + vlNome + ').)*$', 'i')
+                    "localidade": new RegExp(vlLocalidade, 'i'),
+                    "nome": new RegExp('^((?!' + vlNome + ').)*$', 'i')
                 };
 
                 var callback = function(hoteis) {
-                    console.log(result.concat(hoteis).length);
-                    res.json(result.concat(hoteis));
+                    resHoteis(result.concat(hoteis));
                 };
 
                 executarQuery(query, callback);
@@ -109,14 +136,3 @@ module.exports = function(app) {
     };
     return HotelController;
 };
-
-/*
-db.hoteis.find({ localidade: 'Duque De Caxias', nome: 'Aragipe Praia Hotel',  
-     "datasDisponibilidade.data": {
-        $gte: ISODate("2015-05-02T00:00:00Z"),
-        $lte: ISODate("2015-05-03T00:00:00Z")
-    }},{
-     "datasDisponibilidade.disponivel": 1
-     }]
-} ).pretty()
-*/
