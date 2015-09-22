@@ -2,14 +2,7 @@ var app = require('../server');
 var should = require('should');
 var request = require('supertest')(app);
 
-describe('Testando rotas e buscas do sistema', function() {
-    it('deve retornar status 200 ao fazer GET /', function(done) {
-        request.get('/')
-            .end(function(err, res) {
-                res.status.should.eql(200);
-                done();
-            });
-    });
+describe('Testando as buscas do sistema', function() {
     it('deve retornar a lista dos 500 hoteis cadastrados', function(done) {
         request.post('/hotel/listar')
             .end(function(err, res) {
