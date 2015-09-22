@@ -2,7 +2,7 @@
   "name": "desafiohu",
   "version": "0.0.0",
   "description": "Desafio Hotel Urbano",
-  "main": "server.js",
+  "main": "clusters.js",
   "repository": "",
   "author": "Leonardo Cabral <leoccabral@gmail.com>",
   "dependencies": {
