@@ -78,9 +78,9 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3">
-          <div class="item-detalhe">
+          <div class="item-detalhe"> 
             <div class="item-preco">
-              <div ng-if="hotel.disponivel == 'S'">
+              <div ng-if="hotel.disponivel == undefined || hotel.disponivel == 'S'">
                 <p class="lb-partir">Diárias a partir de</p>
                 <span class="moeda">R$</span>
                 <span class="valor">51,96</span>
