@@ -15,14 +15,14 @@ window.angular.module('desafiohu')
 
                 $validator.validate($scope, 'entityBusca').success(function() {
                     $validator.reset($scope, 'entityBusca');
-
+                    $scope.listaHoteis = [];
                     var requestBody = {
                         method: 'POST',
                         url: '/hotel/buscar',
                         data: $scope.entityBusca
                     };
 
-                   $http(requestBody)
+                    $http(requestBody)
                         .success(
                             function(data) {
                                 $scope.listaHoteis = data;
